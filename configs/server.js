@@ -14,8 +14,8 @@ import promotionRoutes from '../src/promotion/promotion.routes.js'
 
 import { dbConnection } from './mongo.js'
 
-class Server{
-    constructor(){
+class Server {
+    constructor() {
         this.app = express()
         this.port = process.env.PORT
         this.authPath = '/banco/v1/auth'
@@ -29,31 +29,32 @@ class Server{
         this.routes()
     }
 
-    async conectarDB(){
+    async conectarDB() {
         await dbConnection()
     }
 
-    middlewares(){
-        this.app.use(express.urlencoded({extended: false}))
-        this.app.use(cors({
-            origin: 'https://genericbank-qpje0zinw-lucianos-projects-579e48f3.vercel.app/'
-        }))
-        this.app.use(cors())
+    middlewares() {
+        this.app.use(express.urlencoded({ extended: false }))
         this.app.use(express.json())
         this.app.use(helmet())
         this.app.use(morgan('dev'))
         this.app.use(apiLimiter)
+
+        // Configurar CORS para permitir solicitudes desde tu dominio frontend
+        this.app.use(cors({
+            origin: 'https://genericbank-qpje0zinw-lucianos-projects-579e48f3.vercel.app'
+        }));
     }
 
-    routes(){
-        this.app.use(this.authPath , authRoutes);
-        this.app.use(this.productPath, productRoutes);
-        this.app.use(this.promotionPath, promotionRoutes);
-        this.app.use(this.settingsPath, settingsRoutes);
-        this.app.use(this.servicePath, serviceRoutes);
+    routes() {
+        this.app.use(this.authPath, authRoutes)
+        this.app.use(this.productPath, productRoutes)
+        this.app.use(this.promotionPath, promotionRoutes)
+        this.app.use(this.settingsPath, settingsRoutes)
+        this.app.use(this.servicePath, serviceRoutes)
     }
 
-    listen(){
+    listen() {
         this.app.listen(this.port, () => {
             console.log('Server running on port ', this.port)
         })
