@@ -35,6 +35,9 @@ class Server{
 
     middlewares(){
         this.app.use(express.urlencoded({extended: false}))
+        this.app.use(cors({
+            origin: 'https://genericbank-qpje0zinw-lucianos-projects-579e48f3.vercel.app/'
+        }))
         this.app.use(cors())
         this.app.use(express.json())
         this.app.use(helmet())
