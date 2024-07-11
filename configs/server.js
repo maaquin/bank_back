@@ -11,6 +11,9 @@ import productRoutes from '../src/product/product.routes.js'
 import serviceRoutes from '../src/service/service.routes.js'
 import settingsRoutes from '../src/settings/settings.routes.js'
 import promotionRoutes from '../src/promotion/promotion.routes.js'
+import userModel from '../src/users/user.model.js'
+import favModel from '../src/users/fav.model.js'
+import promotionModel from '../src/promotion/promotion.model.js'
 
 import { dbConnection } from './mongo.js'
 
